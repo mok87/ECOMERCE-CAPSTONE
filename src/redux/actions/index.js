@@ -1,7 +1,7 @@
 // For Add Item to Cart
 export const addCart = (product) =>{
     return{
-        type : "ADDITEM ",
+        type : "ADDITEM",
         payload : product
     }
 }

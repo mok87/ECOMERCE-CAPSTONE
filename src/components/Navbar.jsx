@@ -1,10 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import store from "../redux/store";
 
 
 const Navbar = () => {
-  const state = useSelector((state) => state.addItem);
+  const state = useSelector((state) => {
+    return state.handleCart;
+  });
+  //const {handleCart} = store.getState();
+  console.log (state)
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
@@ -66,3 +71,5 @@ const Navbar = () => {
   );
 };
 export default Navbar;
+
+
