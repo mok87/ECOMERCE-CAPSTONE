@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 
-
+// this throws an error when i try to load the page. 
 const Checkout = () => {
     const state = useSelector((state) => state.addItem)
 
@@ -19,6 +19,7 @@ const Checkout = () => {
         );
     }
 
+    // there should also be a function that handles the form submission and allows the user to 'checkout'
     return (
         <>
             <div className="container my-5">
@@ -26,9 +27,11 @@ const Checkout = () => {
                     <div className="col-md-5 col-lg-4 order-md-last">
                         <h4 className="d-flex justify-content-between align-items-center mb-3">
                             <span className="text-primary">Your cart</span>
+                            {/* if state is empty [], this will throw an error and crash. there needs to be some logic that prevents this */}
                             <span className="badge bg-primary rounded-pill">{state.length}</span>
                         </h4>
                         <ul className="list-group mb-3">
+                            {/* you will also need to check that state is defined here */}
                             {state.map(itemList)}
 
                             <li className="list-group-item d-flex justify-content-between">

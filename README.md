@@ -68,3 +68,27 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+NOTES 
+
+TO DO: 
+[ ] Login/Logout/Register 
+    - This would be a good use of redux state, since you are using this information across multiple components, etc. 
+    - For a successful login, there should be: 
+        - API call to the fake store users endpoint to retrieve token 
+        - Token should be used to determine if user is logged in or not 
+        - An incorrect username/password combo should result in an error
+        - Once a user successfully logs in, they should be notified (navigates to home screen, alert, something like that)
+[ ] Cart 
+    - If you are not logged in, you should not be able to add an item to the cart 
+    - Once a user is logged in, they should be able to add/remove items from their cart 
+    - Cart should be accessible - a user should be able to navigate there and view their current cart. 
+    - Cart should persist - if user has items in cart, logs off and logs back on, their cart should still show items in it 
+    - User should be able to change quantity from cart itself -  (add/remove functionality)
+    - There should be a way to navigate from cart to checkout
+    - User should only be able to see *their* cart - they should not have access to other ppl's cart.s 
+[ ] Checkout 
+    - This doesn't have to be fancy
+    - The checkout page should ask for user confirmation, the user should be able to hit checkout/submit and the page should change (show a success message, navigate to a different page, etc)
+

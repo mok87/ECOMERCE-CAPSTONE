@@ -17,12 +17,17 @@ const Products = () => {
         setLoading(false);
         console.log(filter);
       }
-
+// this should be outside the useEffect in order for it to run when the component unmounts 
       return () => {
         componentMoumted = false;
       };
     };
     getProducts();
+    // this will run when the component unmounts (garbage collector function)
+    // return () => {
+    //   componentMoumted = false;
+    // };
+    //
   }, []);
  
 

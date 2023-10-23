@@ -21,7 +21,7 @@ const Signup = () => {
         e.preventDefault();
 
         // You can perform user registration logic here, e.g., sending a request to your server
-
+        // same here - https://fakestoreapi.com/docs#login
         // For this example, we'll just log the email and password
         console.log('Email:', email);
         console.log('Password:', password);

@@ -18,6 +18,8 @@ const Login = () => {
         // You can perform authentication here, e.g., sending a request to your server
 
         // For this example, we'll just log the email and password
+        // here - there should be an API request verifying the user => https://fakestoreapi.com/docs#login
+        // this can be stored in the state (redux would be good here) to verify user permissions
         console.log('Email:', email);
         console.log('Password:', password);
 

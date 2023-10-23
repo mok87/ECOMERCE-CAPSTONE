@@ -14,7 +14,9 @@ const Cart = () => {
       {handleCart.map((Item) => (
         <div key={Item.id}>
           <p>{Item.title}</p>
+          {/* i would include image here as well - your cart should match with your site*/}
           <p>${Item.price}</p>
+          {/* user should be able to change qty - +/- */}
           <p>Quantity: {Item.qty}</p>
         </div>
       ))}
