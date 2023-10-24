@@ -1,74 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Signup = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
+  const handleSignup = async () => {
+    try {
+      const response = await fetch("https://fakestoreapi.com/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    const handleConfirmPasswordChange = (e) => {
-        setConfirmPassword(e.target.value);
-    };
+      if (response.ok) {
+        setSuccessMessage("Registration successful!");
+      } else {
+        setErrorMessage("Registration failed. Please check your details.");
+      }
+    } catch (error) {
+      setErrorMessage("An error occurred during registration.");
+    }
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        // You can perform user registration logic here, e.g., sending a request to your server
-
-        // For this example, we'll just log the email and password
-        console.log('Email:', email);
-        console.log('Password:', password);
-        console.log('Confirm Password:', confirmPassword);
-
-        // You can also redirect the user to a different page after successful registration
-    };
-
-    return (
+  return (
+    <div>
+      <h2>Signup</h2>
+      <form>
         <div>
-            <h2>Sign Up</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={handleEmailChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="confirmPassword">Confirm Password:</label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        value={confirmPassword}
-                        onChange={handleConfirmPasswordChange}
-                        required
-                    />
-                </div>
-                <button type="submit">Sign Up</button>
-            </form>
+          <label>Username</label>
+          <input
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleInputChange}
+          />
         </div>
-    );
+        <div>
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+          />
+        </div>
+        <button type="button" onClick={handleSignup}>
+          Sign Up
+        </button>
+      </form>
+      {successMessage && <p>{successMessage}</p>}
+      {errorMessage && <p>{errorMessage}</p>}
+    </div>
+  );
 };
 
 export default Signup;
-

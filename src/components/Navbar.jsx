@@ -1,7 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import store from "../redux/store";
+import store from "../redux/store"
+import Checkout from "./Checkout";
 
 
 const Navbar = () => {
