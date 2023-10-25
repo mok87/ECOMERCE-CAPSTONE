@@ -1,16 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import store from "../redux/store"
 import Checkout from "./Checkout";
 
 
 const Navbar = () => {
-  const state = useSelector((state) => {
-    return state.handleCart;
-  });
+  
   //const {handleCart} = store.getState();
-  console.log (state)
+  
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
@@ -60,8 +56,7 @@ const Navbar = () => {
                 <i className="fa fa-user-plus me-1"></i> Register
               </NavLink>
               <NavLink to="/cart" className="btn btn-outline-dark ms-2">
-                <i className="fa fa-shopping-cart me-1"></i> Cart({state.length}
-                )
+                <i className="fa fa-shopping-cart me-1"></i> Cart(0)
                 </NavLink>
               
             </div>
@@ -72,5 +67,4 @@ const Navbar = () => {
   );
 };
 export default Navbar;
-
 
