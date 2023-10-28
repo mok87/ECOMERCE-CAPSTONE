@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types'
 import { useContext } from 'react'
-import { CartContext } from '../context/cart.jsx'
+import { CartContext } from '../context/cart'
+
 
 export default function Cart ({showModal, toggle}) {
 
-  const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useContext(CartContext)
-
-
+  const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useContext(CartContext);
+  
+  console.log('cartItems', cartItems);
   return (
     showModal && (
       <div className="flex-col flex items-center fixed inset-0 left-1/4 bg-white dark:bg-black gap-8  p-10  text-black dark:text-white font-normal uppercase text-sm">

@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import Checkout from "./Checkout";
-
+import { CartContext } from "../context/cart"; // Import your CartContext
 
 const Navbar = () => {
-  
-  //const {handleCart} = store.getState();
-  
+  const { cartItems } = useContext(CartContext);; // Access the cart context
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
@@ -56,9 +54,8 @@ const Navbar = () => {
                 <i className="fa fa-user-plus me-1"></i> Register
               </NavLink>
               <NavLink to="/cart" className="btn btn-outline-dark ms-2">
-                <i className="fa fa-shopping-cart me-1"></i> Cart(0)
-                </NavLink>
-              
+                <i className="fa fa-shopping-cart me-1"></i> Cart ({cartItems.length})
+              </NavLink>
             </div>
           </div>
         </div>
@@ -66,5 +63,5 @@ const Navbar = () => {
     </div>
   );
 };
-export default Navbar;
 
+export default Navbar;
