@@ -1,59 +1,58 @@
 import React, { useState } from 'react';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('https://fakestoreapi.com/auth/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+          },
+        body: JSON.stringify({ username: "mor_2314",
+        password: "83r5^_" }),
+      });
+    
+    
 
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
+      if (response.ok) {
+        // Successfully logged in
+        const data = await response.json();
+        setMessage(`Welcome, ${data.username}!`);
+      } else {
+        // Login failed
+        setMessage('Invalid username or password');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setMessage('An error occurred while logging in');
+    }
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        // You can perform authentication here, e.g., sending a request to your server
-
-        // For this example, we'll just log the email and password
-        // here - there should be an API request verifying the user => https://fakestoreapi.com/docs#login
-        // this can be stored in the state (redux would be good here) to verify user permissions
-        console.log('Email:', email);
-        console.log('Password:', password);
-
-        // You can also redirect the user to a different page after successful login
-    };
-
-    return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={handleEmailChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        required
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form>
-        </div>
-    );
+  return (
+    <div>
+      <h2>Login</h2>
+      <input
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <br />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <br />
+      <button onClick={handleLogin}>Login</button>
+      <p>{message}</p>
+    </div>
+  );
 };
 
 export default Login;
