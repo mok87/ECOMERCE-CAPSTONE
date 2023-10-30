@@ -7,9 +7,7 @@ export default function Cart ({showModal, toggle}) {
 
   const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useContext(CartContext);
   
-  console.log('cartItems', cartItems);
-  console.log('show modal ', showModal);
-  console.log('toggle ', toggle)
+
   return (
     // showModal && (
       <div className="flex-col flex items-center fixed inset-0 left-1/4 bg-white dark:bg-black gap-8  p-10  text-black dark:text-white font-normal uppercase text-sm">
@@ -74,25 +72,11 @@ export default function Cart ({showModal, toggle}) {
       </div>
     )
   // )
+  // add checkout link !
 }
 
 Cart.propTypes = {
   showModal: PropTypes.bool,
   toggle: PropTypes.func
 }
-    <div>
-      {handleCart.map((Item) => (
-        <div key={Item.id}>
-          <p>{Item.title}</p>
-          {/* i would include image here as well - your cart should match with your site*/}
-          <p>${Item.price}</p>
-          {/* user should be able to change qty - +/- */}
-          <p>Quantity: {Item.qty}</p>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export default Cart;
 

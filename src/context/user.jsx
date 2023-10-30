@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
-
+// import cartContext 
 
 export const UserContext = createContext()
 
@@ -34,8 +34,12 @@ export const UserProvider = ({ children }) => {
                 products:[...] => set cartItems with products 
             }
         */
+            // set products as cartItems 
 
-            
     }
+
+    // useEffect - load all Users 
+
+    // useEffect - check local storage, etc 
 
 }   
