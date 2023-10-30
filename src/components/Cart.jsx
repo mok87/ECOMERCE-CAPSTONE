@@ -8,8 +8,10 @@ export default function Cart ({showModal, toggle}) {
   const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useContext(CartContext);
   
   console.log('cartItems', cartItems);
+  console.log('show modal ', showModal);
+  console.log('toggle ', toggle)
   return (
-    showModal && (
+    // showModal && (
       <div className="flex-col flex items-center fixed inset-0 left-1/4 bg-white dark:bg-black gap-8  p-10  text-black dark:text-white font-normal uppercase text-sm">
         <h1 className="text-2xl font-bold">Cart</h1>
         <div className="absolute right-16 top-10">
@@ -71,7 +73,7 @@ export default function Cart ({showModal, toggle}) {
         }
       </div>
     )
-  )
+  // )
 }
 
 Cart.propTypes = {

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { CartContext } from "../context/cart"; // Import your CartContext
-
+// UserContext 
 const Navbar = () => {
   const { cartItems } = useContext(CartContext);; // Access the cart context
-
+  
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
@@ -46,6 +46,7 @@ const Navbar = () => {
                 </NavLink>
               </li>
             </ul>
+            {/* here-  check context for user - change UI based on user state */}
             <div className="buttons">
               <NavLink to="/login" className="btn btn-outline-dark">
                 <i className="fa fa-sign-in me-1"></i> Login
