@@ -16,6 +16,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <CartProvider>
+      {/* add User provider */}
         <App />
       </CartProvider>
     </BrowserRouter>

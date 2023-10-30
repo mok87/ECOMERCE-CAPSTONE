@@ -42,4 +42,19 @@ export const UserProvider = ({ children }) => {
 
     // useEffect - check local storage, etc 
 
+    return 
+    /* change values to User context 
+    ( <CartContext.Provider
+    value={{
+      cartItems, 
+      addToCart,
+      removeFromCart,
+      clearCart,
+      getCartTotal,
+    }}
+  >
+    {children}
+  </CartContext.Provider>)
+  */ 
+
 }   
