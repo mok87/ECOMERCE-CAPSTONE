@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { CartContext } from "../context/cart";
 
 const Checkout = () => {
-  const { clearCart } = useContext(CartContext); // Remove the 'cart' variable if not used
+  const { clearCart } = useContext(CartContext);
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -15,10 +15,22 @@ const Checkout = () => {
   };
 
   const handleCheckout = () => {
-    // You can implement your checkout logic here
-    // This is a simple example; replace it with actual logic
-    alert(`Checkout successful! Thank you for your order.`);
-    clearCart();
+    if (validateFormData()) {
+      // You can replace this alert with your actual checkout logic
+      alert(`Checkout successful! Thank you for your order.`);
+      clearCart();
+    } else {
+      alert("Please fill in all required fields.");
+    }
+  };
+
+  const validateFormData = () => {
+    // Add validation logic here, e.g., check if all fields are filled
+    return (
+      formData.name.trim() !== "" &&
+      formData.address.trim() !== "" &&
+      formData.paymentInfo.trim() !== ""
+    );
   };
 
   return (

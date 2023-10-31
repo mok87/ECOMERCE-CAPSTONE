@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+// import { UserContext } from './UserContext'; // Import your UserContext
 
 const Login = () => {
+    // const { users, user, setUser, } = useContext(UserContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -20,7 +22,9 @@ const Login = () => {
 
       if (response.ok) {
         // Successfully logged in
-        const data = await response.json();
+        const data = await response.json(); // data = token 
+        // findUser(username, password) => 
+        // loadRemoteCart(userId)
         setMessage(`Welcome, ${data.username}!`);
       } else {
         // Login failed
@@ -32,6 +36,8 @@ const Login = () => {
     }
   };
 
+
+  
   return (
     <div>
       <h2>Login</h2>
@@ -54,5 +60,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;

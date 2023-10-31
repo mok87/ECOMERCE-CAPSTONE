@@ -4,9 +4,11 @@ import { NavLink } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import { CartContext } from "../context/cart";
 import Cart from './Cart'
+import { UserContext } from "../context/user"; 
 
 const Product = () => {
   const { addToCart } = useContext(CartContext)
+  const { user } = useContext(UserContext);
   const [showModal, setshowModal] = useState(false);
   const { id } = useParams();
   const [product, setProduct] = useState([]);
@@ -16,9 +18,7 @@ const Product = () => {
     setshowModal(!showModal);
   };
   
-  // Use addToCart instead of addProduct
-  
-
+ 
   useEffect(() => {
     const getProduct = async () => {
       setLoading(true);
@@ -68,8 +68,14 @@ const Product = () => {
           </p>
           <h3 className="display-6 fw-bold my-4">${product.price}</h3>
           <p className="lead">{product.description}</p>
+           {/* Use addToCart instead of addProduct */}
+
+           {/*user && 
+          (
+          <> */}
           
-          {/* Use addToCart instead of addProduct */}
+         
+
           <button className="btn btn-outline-dark px-4 py-2"onClick={() => addToCart(product)}>
             Add to Cart
           </button>
@@ -77,7 +83,7 @@ const Product = () => {
           <NavLink to="/cart" className="btn btn-dark ms-2 px-3 py-2">
             Go to Cart
           </NavLink>
-          <Cart showModal={showModal} toggle={toggle} />
+          {/* <Cart showModal={showModal} toggle={toggle} /> */}
         </div>
       </>
     );

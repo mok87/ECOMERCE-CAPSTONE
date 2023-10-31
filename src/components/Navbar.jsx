@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { CartContext } from "../context/cart"; // Import your CartContext
+import { CartContext } from "../context/cart";
+import { UserContext } from "../context/user"; // Import your UserContext
 
 const Navbar = () => {
-  const { cartItems } = useContext(CartContext);; // Access the cart context
+  const { cartItems } = useContext(CartContext);
+  const { currentUser, logOut } = useContext(UserContext); // Access the user context
 
   return (
     <div>
@@ -47,15 +49,32 @@ const Navbar = () => {
               </li>
             </ul>
             <div className="buttons">
-              <NavLink to="/login" className="btn btn-outline-dark">
-                <i className="fa fa-sign-in me-1"></i> Login
-              </NavLink>
-              <NavLink to="/register" className="btn btn-outline-dark ms-2">
-                <i className="fa fa-user-plus me-1"></i> Register
-              </NavLink>
-              <NavLink to="/cart" className="btn btn-outline-dark ms-2">
-                <i className="fa fa-shopping-cart me-1"></i> Cart ({cartItems.length})
-              </NavLink>
+              {currentUser ? ( // If a user is logged in, show the Logout button
+                <>
+                  <button
+                    onClick={logOut}
+                    className="btn btn-outline-dark"
+                  >
+                    Logout
+                  </button>
+                  <NavLink to="/cart" className="btn btn-outline-dark ms-2">
+                    <i className="fa fa-shopping-cart me-1"></i> Cart ({cartItems.length})
+                  </NavLink>
+                </>
+              ) : (
+                // If no user is logged in, show Login and Register buttons
+                <>
+                  <NavLink to="/login" className="btn btn-outline-dark">
+                    <i className="fa fa-sign-in me-1"></i> Login
+                  </NavLink>
+                  <NavLink to="/register" className="btn btn-outline-dark ms-2">
+                    <i className="fa fa-user-plus me-1"></i> Register
+                  </NavLink>
+                  <NavLink to="/cart" className="btn btn-outline-dark ms-2">
+                    <i className="fa fa-shopping-cart me-1"></i> Cart ({cartItems.length})
+                  </NavLink>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -65,3 +84,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
