@@ -1,60 +1,99 @@
-import { createContext, useState, useEffect } from 'react'
-// import cartContext 
+import React, { createContext, useState, useEffect } from 'react';
 
-export const UserContext = createContext()
-
-
+export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  const [users, setUsers] = useState([]); // Save all users in context
+  const [currentUser, setCurrentUser] = useState(null); // Represent the logged-in user
+  const [cartItems, setCartItems] = useState([]); // Store cart items
 
-    const [users, setUsers] = useState([]) // save all of the users in context 
+  const authenticateUser = (username, password) => {
+    // Find the user with the provided username and password
+    const authenticatedUser = users.find(
+      (user) => user.username === username && user.password === password
+    );
 
-    const [currentUser, setCurrentUser] = useState('') // logged in user
-
-    const findUserProfile = async () => {
-        // match authenticated user's username + password with user profile in stored user array 
-        // users.filter(user => user.username === username && user.password === password) 
-
-        // setUser({ ...user info ... })
+    if (authenticatedUser) {
+      // Set the current user when authentication succeeds
+      setCurrentUser(authenticatedUser);
+      loadRemoteCart(authenticatedUser.id);
+      return true;
     }
 
-    const logOut = () => {
-        // set currentUser to ''/null/{}
+    return false;
+  };
 
-        // clear localStorage - clear userInfo 
+  const loadRemoteCart = (userId) => {
+    // Fetch the user's cart from a remote server or localStorage
+    // and set the cart items in state
+    // Example code for loading the cart from a remote server
+    fetch(`https://https://fakestoreapi.com/cart/${userId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCartItems(data.products);
+      })
+      .catch((error) => {
+        console.error('Error loading cart:', error);
+      });
+  };
+
+  const logOut = () => {
+    // Clear the current user and cart items
+    setCurrentUser(null);
+    setCartItems([]);
+  };
+
+  // Load users and perform other setup tasks when the component mounts
+  useEffect(() => {
+    // Fetch the list of users from a remote server or localStorage
+    // Example code for loading users from a remote server
+    fetch('https://https://fakestoreapi.com/user')
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data);
+      })
+      .catch((error) => {
+        console.error('Error loading users:', error);
+      });
+
+    // Check if there's a stored user session, and load the cart if needed
+    if (localStorage.getItem('userSession')) {
+      // Retrieve and parse the user session data from localStorage
+      const userSession = JSON.parse(localStorage.getItem('userSession'));
+
+      // Set the current user from the user session
+      setCurrentUser(userSession.user);
+
+      // Load the user's cart
+      loadRemoteCart(userSession.user.id);
     }
+  }, []);
 
-    const loadRemoteCart = () => {
+  // Save user session data when the current user changes
+  useEffect(() => {
+    if (currentUser) {
+      // Create a user session object
+      const userSession = { user: currentUser };
 
-        /* 
-        {
-                id:5,
-                userId:1,
-                date:...,
-                products:[...] => set cartItems with products 
-            }
-        */
-            // set products as cartItems 
-
+      // Store the user session data in localStorage
+      localStorage.setItem('userSession', JSON.stringify(userSession));
+    } else {
+      // Remove the user session data when the user logs out
+      localStorage.removeItem('userSession');
     }
+  }, [currentUser]);
 
-    // useEffect - load all Users 
+  // Provide values to the context
+  const contextValue = {
+    currentUser,
+    cartItems,
+    authenticateUser,
+    logOut,
+  };
 
-    // useEffect - check local storage, etc 
-
-    return 
-    /* change values to User context 
-    ( <CartContext.Provider
-    value={{
-      cartItems, 
-      addToCart,
-      removeFromCart,
-      clearCart,
-      getCartTotal,
-    }}
-  >
-    {children}
-  </CartContext.Provider>)
-  */ 
-
-}   
+  return (
+    <UserContext.Provider value={contextValue}>
+      {children}
+    </UserContext.Provider>
+  );
+};

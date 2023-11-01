@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-// import { UserContext }
+import React, { useState, useContext } from 'react';
+// import { UserContext } from './UserContext'; // Import your UserContext
+
 const Login = () => {
-  // const { users, user, setUser, } = useContext(UserContext); 
-  const [username, setUsername] = useState(''); // holding value until user hits submit 
+    // const { users, user, setUser, } = useContext(UserContext);
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
@@ -35,6 +36,8 @@ const Login = () => {
     }
   };
 
+
+  
   return (
     <div>
       <h2>Login</h2>
@@ -57,5 +60,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;

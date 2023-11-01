@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import { NavLink } from "react-router-dom";
 
+
 const Products = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
@@ -17,17 +18,13 @@ const Products = () => {
         setFilter(await response.json());
         setLoading(false);
       }
-// this should be outside the useEffect in order for it to run when the component unmounts 
       return () => {
         componentMounted = false;
       };
+      
     };
     getProducts();
-    // this will run when the component unmounts (garbage collector function)
-    // return () => {
-    //   componentMoumted = false;
-    // };
-    //
+   
   }, []);
 
   const Loading = () => {
