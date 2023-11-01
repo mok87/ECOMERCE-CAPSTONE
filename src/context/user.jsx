@@ -1,11 +1,10 @@
-import React, { createContext, useState, useEffect } from 'react';
-
+import React, { createContext, useState, useEffect, useContext } from 'react';
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [users, setUsers] = useState([]); // Save all users in context
   const [currentUser, setCurrentUser] = useState(null); // Represent the logged-in user
-  const [cartItems, setCartItems] = useState([]); // Store cart items
+  // const [cartItems, setCartItems] = useState([]); // Store cart items
 
   const authenticateUser = (username, password) => {
     // Find the user with the provided username and password
@@ -22,7 +21,7 @@ export const UserProvider = ({ children }) => {
 
     return false;
   };
-
+  // we need to move this to the LogIn component 
   const loadRemoteCart = (userId) => {
     // Fetch the user's cart from a remote server or localStorage
     // and set the cart items in state
@@ -47,7 +46,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     // Fetch the list of users from a remote server or localStorage
     // Example code for loading users from a remote server
-    fetch('https://https://fakestoreapi.com/user')
+    fetch('https://fakestoreapi.com/users')
       .then((response) => response.json())
       .then((data) => {
         setUsers(data);
@@ -86,7 +85,6 @@ export const UserProvider = ({ children }) => {
   // Provide values to the context
   const contextValue = {
     currentUser,
-    cartItems,
     authenticateUser,
     logOut,
   };
