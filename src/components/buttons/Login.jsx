@@ -1,33 +1,34 @@
 import React, { useState, useContext } from 'react';
-// import { UserContext } from './UserContext'; // Import your UserContext
+import { UserContext } from '../../context/user'; // Import your UserContext
+import { CartContext } from '../../context/cart';
 
 const Login = () => {
-    // const { users, user, setUser, } = useContext(UserContext);
+  const { authenticateUser, currentUser } = useContext(UserContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const cartContext = useContext(CartContext);
 
   const handleLogin = async () => {
     try {
+      console.log(username, password);
       const response = await fetch('https://fakestoreapi.com/auth/login', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-          },
-        body: JSON.stringify({ username: "mor_2314",
-        password: "83r5^_" }),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
       });
-    
-    
+
+      console.log(response);
 
       if (response.ok) {
-        // Successfully logged in
-        const data = await response.json(); // data = token 
-        // findUser(username, password) => 
-        // loadRemoteCart(userId)
-        setMessage(`Welcome, ${data.username}!`);
+        const data = await response.json();
+        authenticateUser(username, password);
+        setMessage(`Welcome, ${currentUser.username}!`);
       } else {
-        // Login failed
+        const errorData = await response.json();
+        console.error('Login failed:', errorData);
         setMessage('Invalid username or password');
       }
     } catch (error) {
@@ -36,8 +37,6 @@ const Login = () => {
     }
   };
 
-
-  
   return (
     <div>
       <h2>Login</h2>
@@ -60,4 +59,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;

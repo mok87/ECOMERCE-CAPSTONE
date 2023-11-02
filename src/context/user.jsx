@@ -5,7 +5,7 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [users, setUsers] = useState([]); // Save all users in context
   const [currentUser, setCurrentUser] = useState(null); // Represent the logged-in user
-  const [cartItems, setCartItems] = useState([]); // Store cart items
+  
 
   const authenticateUser = (username, password) => {
     // Find the user with the provided username and password
@@ -16,8 +16,8 @@ export const UserProvider = ({ children }) => {
     if (authenticatedUser) {
       // Set the current user when authentication succeeds
       setCurrentUser(authenticatedUser);
-      loadRemoteCart(authenticatedUser.id);
-      return true;
+      return loadRemoteCart(authenticatedUser.id);
+      
     }
 
     return false;
@@ -27,10 +27,10 @@ export const UserProvider = ({ children }) => {
     // Fetch the user's cart from a remote server or localStorage
     // and set the cart items in state
     // Example code for loading the cart from a remote server
-    fetch(`https://https://fakestoreapi.com/cart/${userId}`)
+    fetch(`https://fakestoreapi.com/carts/${userId}`)
       .then((response) => response.json())
       .then((data) => {
-        setCartItems(data.products);
+        return(data.products);
       })
       .catch((error) => {
         console.error('Error loading cart:', error);
@@ -40,14 +40,14 @@ export const UserProvider = ({ children }) => {
   const logOut = () => {
     // Clear the current user and cart items
     setCurrentUser(null);
-    setCartItems([]);
+   
   };
 
   // Load users and perform other setup tasks when the component mounts
   useEffect(() => {
     // Fetch the list of users from a remote server or localStorage
     // Example code for loading users from a remote server
-    fetch('https://https://fakestoreapi.com/user')
+    fetch('https://fakestoreapi.com/users')
       .then((response) => response.json())
       .then((data) => {
         setUsers(data);
@@ -86,7 +86,6 @@ export const UserProvider = ({ children }) => {
   // Provide values to the context
   const contextValue = {
     currentUser,
-    cartItems,
     authenticateUser,
     logOut,
   };
